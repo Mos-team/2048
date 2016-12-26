@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>2048</title>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="support.js"></script>
+	<script type="text/javascript" src="animation.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</head>
+<style type="text/css">
+    header {
+        margin: 0 auto;
+		width:100%;
+        text-align: center;
+    }
+	header h1{
+		font-size: 60px;
+	}
+	header #new_game_button{
+		padding:10px 10px;
+		background-color: burlywood;
+		border-radius: 5px;
+		text-decoration: none;
+	}
+	#grid_container{
+		margin:0 auto;
+		padding: 20px;
+		width:460px;
+		height:460px;
+		border-radius: 10px;
+		background-color: darkgrey;
+		position: relative;
+	}
+	.grid_cell{
+		width:100px;
+		height:100px;
+		border-radius: 8px;
+		background-color: #ccc0b3;
+		position:absolute;
+	}
+	.number_cell{
+		border-radius:8px;
+		font-family: Arial;
+		line-height: 100px;
+		text-align: center;
+		font-size: 60px;
+		position: absolute;
+	}
+</style>
+
+<body>
+    <header>
+        <h1>2048</h1>
+        <a href="javascript:new_game();" id="new_game_button">New Game</a>
+        <p>score: <span id="score">0</span>
+        </p>
+    </header>
+    <div id="grid_container">
+        <div class="grid_cell" id="grid_cell_0_0"></div>
+        <div class="grid_cell" id="grid_cell_0_1"></div>
+        <div class="grid_cell" id="grid_cell_0_2"></div>
+        <div class="grid_cell" id="grid_cell_0_3"></div>
+
+        <div class="grid_cell" id="grid_cell_1_0"></div>
+        <div class="grid_cell" id="grid_cell_1_1"></div>
+        <div class="grid_cell" id="grid_cell_1_2"></div>
+        <div class="grid_cell" id="grid_cell_1_3"></div>
+
+        <div class="grid_cell" id="grid_cell_2_0"></div>
+        <div class="grid_cell" id="grid_cell_2_1"></div>
+        <div class="grid_cell" id="grid_cell_2_2"></div>
+        <div class="grid_cell" id="grid_cell_2_3"></div>
+
+        <div class="grid_cell" id="grid_cell_3_0"></div>
+        <div class="grid_cell" id="grid_cell_3_1"></div>
+        <div class="grid_cell" id="grid_cell_3_2"></div>
+        <div class="grid_cell" id="grid_cell_3_3"></div>
+    </div>
+</body>
+
+</html>
