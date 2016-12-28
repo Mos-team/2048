@@ -72,6 +72,7 @@ function full_space(board) {
 }
 
 function can_move_left(board){
+	//不考虑左侧一列
 	for(var i=0;i<4;i++){
 		for(var j=1;j<4;j++){
 			if(board[i][j-1]==0||board[i][j]==board[i][j-1]){
@@ -82,11 +83,73 @@ function can_move_left(board){
 	return false;
 }
 
+function can_move_right(board){
+	//不考虑右侧一列
+	for(var i=0;i<4;i++){
+		for(var j=0;j<3;j++){
+			if(board[i][j+1]==0||board[i][j]==board[i][j+1]){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function can_move_up(board){
+	//不考虑顶部一行
+	for(var i=1;i<4;i++){
+		for(var j=0;j<4;j++){
+			if(board[i-1][j]==0||board[i][j]==board[i-1][j]){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function can_move_down(board){
+	//不考虑底部一行
+	for(var i=0;i<3;i++){
+		for(var j=0;j<4;j++){
+			if(board[i+1][j]==0||board[i][j]==board[i+1][j]){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 function no_block_horizontal(row,col1,col2,board){
 	for(var j=col1+1;j<=col2;j++){
-		if(board[row][j]!=0){
+		if(board[row][j]==0){//水平方向无障碍物
 			return true;
 		}
 	}
 	return false;
+}
+
+function no_block_vertical(row1,row2,col,board){
+	for(var i=row1+1;i<row2;i++){
+		if(board[i][col]==0){
+			return true;
+		}
+	}
+	return false;
+}
+
+function noMove(board){	if(can_move_left(board)||can_move_right(board)||can_move_up(board)||can_move_down(board)){
+		return false;
+	}
+	return true;
+}
+
+function nospace(board){
+	for(var row=0;row<4;row++){
+		for(var col=0;col<4;col++){
+			if(board[row][col]!=0){
+				return true;
+			}
+		}
+	}
+	return true;
 }

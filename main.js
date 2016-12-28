@@ -1,5 +1,6 @@
 var score=0;
 var success_string = 'Success';
+var gameover_string = 'GameOver';
 var board = new Array();
 var has_conflict = new Array();
 $(document).ready(function(){
@@ -70,16 +71,17 @@ function generate_one_number(){
 }
 
 $(document).keydown(function(event){
-	/*if($("#score").text()==success_string){
+	if($("#score").text()==success_string){
 		new_game();
 		return ;
-	}*/
+	}
 	switch(event.keyCode){
 		case 37:	//left
 			event.preventDefault(); //取消事件的默认动作
-			
 			if(move_left()){
+				//每操作一步生成一个数字并判断游戏是否结束
 				generate_one_number();
+				setTimeout('is_gameover()', 300);
 			}
 		default:
 			break;
@@ -106,6 +108,7 @@ function move_left(){
 					showMoveLeftAnimation(row,col,row,k);
 					board[row][k]+=board[row][col];
 					board[row][col]=0;
+					score+=board[row][k];
 					continue;
 				}
 			}
@@ -114,4 +117,87 @@ function move_left(){
 	update_board_view();
 	setTimeout("update_board_view()",200);
 	return true;
+}
+
+function move_right(){
+	if(!can_move_right(board)){
+		return false;
+	}
+	for(var row=0;row<4;row++){
+		for(var col =0;col<3;col++){
+			for(var k=col+1;k<4;k++){
+				if(board[row][k]==0 && no_block_horizontal(row,col,K,board)){
+					//待检测的元素和落脚处的元素之间无障碍且落脚处元素为0,落脚点[row,k]
+					showMoveLeftAnimation(row,col,row,k);
+					board[row][k]=board[row][col];
+					board[row][col]=0;
+					continue;
+				}else if(board[row][k]==board[row][col]&& no_block_horizontal(row,col,k,board)){
+					//待检测的元素和落脚处的元素之间无障碍且两者数值相等,落脚点[row,k]
+					showMoveLeftAnimation(row,col,row,k);
+					board[row][k]+=board[row][col];
+					board[row][col]=0;
+					score+=board[row][k];
+					continue;
+				}
+			}
+		}
+	}
+	update_board_view();
+	setTimeout("update_board_view()",200);
+	return true;
+}
+
+function move_up(){
+	if(!can_move_left(board)){
+		return false;
+	}
+	
+	for(var row=0;row<4;row++){
+		for(var col =1;col<4;col++){
+			for(var k=0;k<col;k++){
+				if(board[row][k]==0 && no_block_horizontal(row,k,col,board)){
+					//待检测的元素和落脚处的元素之间无障碍且落脚处元素为0,落脚点[row,k]
+					showMoveLeftAnimation(row,col,row,k);
+					board[row][k]=board[row][col];
+					board[row][col]=0;
+					continue;
+				}else if(board[row][k]==board[row][col]&& no_block_horizontal(row,k,col,board)){
+					//待检测的元素和落脚处的元素之间无障碍且两者数值相等,落脚点[row,k]
+					showMoveLeftAnimation(row,col,row,k);
+					board[row][k]+=board[row][col];
+					board[row][col]=0;
+					score+=board[row][k];
+					continue;
+				}
+			}
+		}
+	}
+	update_board_view();
+	setTimeout("update_board_view()",200);
+	return true;
+}
+
+function is_gameover(){
+	//顺利通关
+	for(var row=0;row<4;row++){
+		for(var col=0;col<4;col++){
+			if(board[row][col]== 2048){
+				update_score(success_string);
+				return ;
+			}
+		}
+	}
+	//game over
+	if(nospace(board)&&noMove(board)){
+		game_over();
+	}
+}
+
+function game_over(){
+	update_score(gameover_string);
+}
+
+function update_score(score){
+	$("#score").text(score);
 }
