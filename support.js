@@ -119,22 +119,23 @@ function can_move_down(board){
 	return false;
 }
 
+//水平方向无障碍物
 function no_block_horizontal(row,col1,col2,board){
-	for(var j=col1+1;j<=col2;j++){
-		if(board[row][j]==0){//水平方向无障碍物
-			return true;
+	for(var j=col1+1;j<col2;j++){
+		if(board[row][j]!=0){//水平方向有障碍物
+			return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 function no_block_vertical(row1,row2,col,board){
 	for(var i=row1+1;i<row2;i++){
-		if(board[i][col]==0){
-			return true;
+		if(board[i][col]!=0){ //垂直方向有障碍物
+			return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 function noMove(board){	if(can_move_left(board)||can_move_right(board)||can_move_up(board)||can_move_down(board)){
