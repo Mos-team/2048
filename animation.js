@@ -11,7 +11,15 @@ function show_number_with_animation(x,y,number){
 	},50);
 }
 
-function showMoveLeftAnimation(x,y,des_x,des_y){
+/*function showMoveLeftAnimation(x,y,des_x,des_y){
+	var number_cell = $('#number_cell_'+x+'_'+y);
+	number_cell.animate({
+		top:get_pos_top(des_x),
+		left:get_pos_left(des_y),
+	},200);
+}*/
+
+function showMoveAnimation(x,y,des_x,des_y){
 	var number_cell = $('#number_cell_'+x+'_'+y);
 	number_cell.animate({
 		top:get_pos_top(des_x),

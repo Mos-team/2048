@@ -52,6 +52,7 @@ function update_board_view() {
             has_conflict[i][j] = false;
         }
     }
+	update_score(score);
 }
 
 function generate_one_number() {
@@ -85,7 +86,7 @@ $(document).keydown(function(event) {
             if (move_left()) {
                 //每操作一步生成一个数字并判断游戏是否结束
                 generate_one_number();
-                //setTimeout('is_gameover()', 300);
+                setTimeout('is_gameover()', 300);
             }
             break;
         case 38: //up
@@ -125,7 +126,7 @@ function move_left() {
                 for (var k = 0; k < col; k++) {
                     if (board[row][k] == 0 && no_block_horizontal(row, k, col, board)) {
                         //待检测的元素和落脚处的元素之间无障碍且落脚处元素为0,落脚点[row,k]
-                        //showMoveLeftAnimation(row,col,row,k);
+                        showMoveAnimation(row,col,row,k);
                         board[row][k] = board[row][col];
                         board[row][col] = 0;
                         continue;
@@ -135,7 +136,7 @@ function move_left() {
                         //showMoveLeftAnimation(row,col,row,k);
                         board[row][k] += board[row][col];
                         board[row][col] = 0;
-                        //score+=board[row][k];
+                        score+=board[row][k];
                         continue;
                     }
                 }
@@ -157,16 +158,16 @@ function move_right() {
                 for (var k = col + 1; k < 4; k++) {
                     if (board[row][k] == 0 && no_block_horizontal(row, col, k, board)) {
                         //待检测的元素和落脚处的元素之间无障碍且落脚处元素为0,落脚点[row,k]
-                        //showMoveLeftAnimation(row,col,row,k);
+                        showMoveAnimation(row,col,row,k);
                         board[row][k] = board[row][col];
                         board[row][col] = 0;
                         continue;
                     } else if (board[row][k] == board[row][col] && no_block_horizontal(row, col, k, board)) {
                         //待检测的元素和落脚处的元素之间无障碍且两者数值相等,落脚点[row,k]
-                        //showMoveLeftAnimation(row,col,row,k);
+                        showMoveLeftAnimation(row,col,row,k);
                         board[row][k] += board[row][col];
                         board[row][col] = 0;
-                        //score+=board[row][k];
+                        score+=board[row][k];
                         continue;
                     }
                 }
@@ -174,7 +175,7 @@ function move_right() {
 
         }
     }
-    update_board_view();
+   
     setTimeout("update_board_view()", 200);
     return true;
 }
@@ -190,7 +191,7 @@ function move_up() {
                 for (var k = 0; k < row; k++) {
                     if (board[k][col] == 0 && no_block_vertical(k, row, col, board)) {
                         //待检测的元素和落脚处的元素之间无障碍且落脚处元素为0,落脚点[row,k]
-                        //showMoveLeftAnimation(row,col,row,k);
+                        showMoveAnimation(row,col,k,col);
                         board[k][col] = board[row][col];
                         board[row][col] = 0;
                         continue;
@@ -199,7 +200,7 @@ function move_up() {
                         //showMoveLeftAnimation(row,col,row,k);
                         board[k][col] += board[row][col];
                         board[row][col] = 0;
-                        //score+=board[k][col];
+                        score+=board[k][col];
                         continue;
                     }
                 }
@@ -207,7 +208,7 @@ function move_up() {
 
         }
     }
-    update_board_view();
+    
     setTimeout("update_board_view()", 200);
     return true;
 }
@@ -228,17 +229,17 @@ function move_down() {
                         continue;
                     } else if (board[k][col] == board[row][col] && no_block_vertical(row, k, col, board)) {
                         //待检测的元素和落脚处的元素之间无障碍且两者数值相等,落脚点[row,k]
-                        //showMoveLeftAnimation(row,col,row,k);
+                        showMoveAnimation(row,col,k,col);
                         board[k][col] += board[row][col];
                         board[row][col] = 0;
-                        //score+=board[k][col];
+                        score+=board[k][col];
                         continue;
                     }
                 }
             }
         }
     }
-    update_board_view();
+    
     setTimeout("update_board_view()", 200);
     return true;
 }
